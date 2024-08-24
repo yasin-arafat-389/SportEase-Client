@@ -18,6 +18,11 @@ export default withMT({
         secondary: {
           DEFAULT: "#28a745",
         },
+
+        button: {
+          DEFAULT: "#fb8c00",
+          dark: "#ef6c00",
+        },
       },
     },
   },
