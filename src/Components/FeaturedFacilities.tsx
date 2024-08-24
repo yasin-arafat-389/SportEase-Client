@@ -1,6 +1,6 @@
 const FeaturedFacilities = () => {
   return (
-    <div className="mt-9">
+    <div className="mt-9 pb-20">
       <div className="mb-4 flex items-center justify-center gap-8 sm:mb-8 md:mb-5">
         <div className="flex items-center justify-center gap-12">
           <h2 className="text-2xl font-bold text-gray-800 lg:text-4xl dark:text-white">
