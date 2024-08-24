@@ -33,7 +33,7 @@ const Hero = () => {
             Reserve Your Ideal Sports Facility
             <span className="text-secondary"> Anytime, Anywhere</span>
           </h1>
-          <p className="max-w-xl mx-auto text-center text-base font-normal leading-7 text-gray-500 mb-9">
+          <p className="max-w-xl mx-auto text-center text-base font-normal leading-7 text-gray-600 mb-9">
             Unlock access to the best sports facilities around you. Whether it’s
             football, hockey, or any other sport, secure your spot with just a
             few clicks.
