@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Drawer } from "@material-tailwind/react";
 import { useState } from "react";
@@ -19,9 +19,11 @@ const Navbar = () => {
         <NavLink to={"/"}>Home</NavLink>
         <NavLink to={"/products"}>Products</NavLink>
         <NavLink to={"/management"}>Management</NavLink>
-        <NavLink to={"/cart"}>
-          <HiOutlineShoppingBag size={"30"} />
-        </NavLink>
+        <Link to={"/login"}>
+          <button className="cursor-pointer transition-all bg-button text-white px-4 py-1 rounded-lg border-blue-600 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+            Login
+          </button>
+        </Link>
       </div>
 
       <div className="flex md:flex lg:hidden">
