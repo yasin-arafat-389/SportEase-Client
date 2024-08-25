@@ -22,7 +22,7 @@ const Navbar = () => {
 
       <div className="hidden md:hidden lg:flex gap-7 justify-center items-center text-lg font-bold">
         <NavLink to={"/"}>Home</NavLink>
-        <NavLink to={"/products"}>Products</NavLink>
+        <NavLink to={"/about-us"}>About Us</NavLink>
         <NavLink to={"/management"}>Management</NavLink>
 
         {user ? (
