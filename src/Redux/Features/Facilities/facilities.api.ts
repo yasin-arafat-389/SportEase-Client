@@ -9,7 +9,14 @@ const authApi = baseApi.injectEndpoints({
       }),
       providesTags: ["facilities"],
     }),
+
+    getFacilityDetails: builder.query({
+      query: (id) => ({
+        url: `/facility/details/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllFacilitiesQuery } = authApi;
+export const { useGetAllFacilitiesQuery, useGetFacilityDetailsQuery } = authApi;

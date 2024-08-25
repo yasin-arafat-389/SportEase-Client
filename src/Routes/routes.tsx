@@ -7,6 +7,7 @@ import Registration from "../Pages/Registration";
 import AboutUs from "../Pages/AboutUs";
 import ContactUs from "../Pages/ContactUs";
 import Facilities from "../Pages/Facilities";
+import FacilitiesDetails from "../Pages/FacilitiesDetails";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/facilities",
         element: <Facilities />,
+      },
+      {
+        path: "/facilities/:id",
+        element: <FacilitiesDetails />,
       },
     ],
   },

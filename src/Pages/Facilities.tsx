@@ -90,7 +90,7 @@ const Facilities = () => {
 
                   <Link
                     className="mt-5 text-white flex justify-center items-center gap-3 font-bold rounded-xl bg-button p-2 hover:bg-button-dark"
-                    to={`/product/details`}
+                    to={`/facilities/${facility._id}`}
                   >
                     View Details
                   </Link>
