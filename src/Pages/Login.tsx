@@ -1,6 +1,42 @@
-import { Link } from "react-router-dom";
+import { FormEvent, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../Redux/Features/Auth/authAPI";
+import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "../Redux/hooks";
+import { selectCurrentUser, setUser } from "../Redux/Features/Auth/authSlice";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
+  const [email, setEmail] = useState("emon@gmail.com");
+  const [password, setPassword] = useState("abcd1234");
+  const [login, { isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectCurrentUser);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const userInfo = { email, password };
+      const res = await login(userInfo).unwrap();
+
+      console.log(res);
+
+      dispatch(setUser({ user: res?.data, token: res?.token }));
+
+      toast.success("Logged in successfully");
+
+      navigate("/");
+    } catch (err) {
+      console.error("Failed to log in:", err);
+    }
+  };
+
+  if (user) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div className="bg-[#F5EDED]">
       <div className="py-16">
@@ -19,31 +55,56 @@ const Login = () => {
               Login to manage bookings!
             </p>
 
-            <div className="mt-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Email Address
-              </label>
-              <input
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="email"
-              />
-            </div>
-            <div className="mt-4">
-              <div className="flex justify-between">
+            <form onSubmit={handleSubmit}>
+              <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Password
+                  Email Address
                 </label>
+                <input
+                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  defaultValue="emon@gmail.com"
+                />
               </div>
-              <input
-                className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="password"
-              />
-            </div>
-            <div className="mt-8">
-              <button className="bg-button hover:bg-button-dark text-white font-bold py-2 px-4 w-full rounded">
-                Login
-              </button>
-            </div>
+
+              <div className="mt-4">
+                <div className="flex justify-between">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Password
+                  </label>
+                </div>
+                <input
+                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mt-8">
+                <button
+                  disabled={isLoading}
+                  type="submit"
+                  className="bg-button hover:bg-button-dark text-white font-bold py-2 px-4 w-full rounded"
+                >
+                  {isLoading ? (
+                    <div className="flex gap-3 justify-center items-center text-2xl">
+                      <div className="animate-spin ">
+                        <TbFidgetSpinner />
+                      </div>
+                      <span className="text-lg">Please Wait</span>
+                    </div>
+                  ) : (
+                    "Login"
+                  )}
+                </button>
+              </div>
+            </form>
+
             <div className="">
               <span className="border-b"></span>
               <p className="text-lg text-gray-600 mt-4">
@@ -55,6 +116,7 @@ const Login = () => {
                   sign up
                 </Link>
               </p>
+
               <span className="border-b w-1/5 md:w-1/4"></span>
             </div>
           </div>

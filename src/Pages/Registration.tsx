@@ -1,4 +1,14 @@
+import { Navigate } from "react-router-dom";
+import { useAppSelector } from "../Redux/hooks";
+import { selectCurrentUser } from "../Redux/Features/Auth/authSlice";
+
 const Registration = () => {
+  const user = useAppSelector(selectCurrentUser);
+
+  if (user) {
+    return <Navigate to={"/"} />;
+  }
+
   return (
     <div>
       <div className="bg-[#F5EDED]">
