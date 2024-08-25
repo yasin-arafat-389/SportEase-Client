@@ -135,6 +135,7 @@ const Registration = () => {
                   <button
                     type="submit"
                     className="bg-button hover:bg-button-dark text-white font-bold py-2 px-4 w-full rounded"
+                    disabled={isLoading}
                   >
                     {isLoading ? (
                       <div className="flex gap-3 justify-center items-center text-2xl">
@@ -144,7 +145,7 @@ const Registration = () => {
                         <span className="text-lg">Please Wait</span>
                       </div>
                     ) : (
-                      "Login"
+                      "Sign Up"
                     )}
                   </button>
                 </div>

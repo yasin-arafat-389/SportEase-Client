@@ -315,7 +315,7 @@ const AboutUs = () => {
                   Come say hello at our office HQ.
                 </p>
                 <p className="mt-2 text-blue-500 dark:text-blue-400 font-semibold">
-                  100 Smith Street Collingwood VIC 3066 AU
+                  60 feet road, barek molla more, Mirpur 2, Dhaka
                 </p>
               </div>
 
