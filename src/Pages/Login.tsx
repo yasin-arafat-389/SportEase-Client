@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormEvent, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../Redux/Features/Auth/authAPI";
@@ -28,8 +29,10 @@ const Login = () => {
       toast.success("Logged in successfully");
 
       navigate("/");
-    } catch (err) {
-      console.error("Failed to log in:", err);
+    } catch (err: any) {
+      if (err.data.success === false) {
+        toast.error(err.data.message);
+      }
     }
   };
 

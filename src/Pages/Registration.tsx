@@ -1,9 +1,39 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../Redux/hooks";
 import { selectCurrentUser } from "../Redux/Features/Auth/authSlice";
+import { useRegistrationMutation } from "../Redux/Features/Auth/authAPI";
+import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const Registration = () => {
   const user = useAppSelector(selectCurrentUser);
+  const [registration, { isLoading }] = useRegistrationMutation();
+
+  // State for form inputs
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const userInfo = { name, email, password, phone, role: "user", address };
+      await registration(userInfo).unwrap();
+
+      toast.success("Registration successful!");
+
+      navigate("/login");
+    } catch (err) {
+      toast.error("Failed to register");
+      console.log(err);
+    }
+  };
 
   if (user) {
     return <Navigate to={"/"} />;
@@ -29,67 +59,96 @@ const Registration = () => {
                 Sign Up to be a member!
               </p>
 
-              <div className="mt-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Name
-                </label>
-                <input
-                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                  type="text"
-                />
-              </div>
-
-              <div className="mt-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Email Address
-                </label>
-                <input
-                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                  type="email"
-                />
-              </div>
-
-              <div className="mt-4">
-                <div className="flex justify-between">
+              <form onSubmit={handleSubmit}>
+                <div className="mt-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Password
+                    Name
                   </label>
+                  <input
+                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
                 </div>
-                <input
-                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                  type="password"
-                />
-              </div>
 
-              <div className="mt-4">
-                <div className="flex justify-between">
+                <div className="mt-4">
                   <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Phone
+                    Email Address
                   </label>
+                  <input
+                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                 </div>
-                <input
-                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                  type="number"
-                />
-              </div>
 
-              <div className="mt-4">
-                <div className="flex justify-between">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Address
-                  </label>
+                <div className="mt-4">
+                  <div className="flex justify-between">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Password
+                    </label>
+                  </div>
+                  <input
+                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
                 </div>
-                <input
-                  className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                  type="text"
-                />
-              </div>
 
-              <div className="mt-8">
-                <button className="bg-button hover:bg-button-dark text-white font-bold py-2 px-4 w-full rounded">
-                  Sign Up
-                </button>
-              </div>
+                <div className="mt-4">
+                  <div className="flex justify-between">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Phone
+                    </label>
+                  </div>
+                  <input
+                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type="number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="mt-4">
+                  <div className="flex justify-between">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Address
+                    </label>
+                  </div>
+                  <input
+                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="mt-8">
+                  <button
+                    type="submit"
+                    className="bg-button hover:bg-button-dark text-white font-bold py-2 px-4 w-full rounded"
+                  >
+                    {isLoading ? (
+                      <div className="flex gap-3 justify-center items-center text-2xl">
+                        <div className="animate-spin ">
+                          <TbFidgetSpinner />
+                        </div>
+                        <span className="text-lg">Please Wait</span>
+                      </div>
+                    ) : (
+                      "Login"
+                    )}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
