@@ -48,7 +48,10 @@ const Login = () => {
               <span className="border-b"></span>
               <p className="text-lg text-gray-600 mt-4">
                 New to this platform?{" "}
-                <Link to={"/"} className="text-button-dark hover:underline">
+                <Link
+                  to={"/registration"}
+                  className="text-button-dark hover:underline"
+                >
                   sign up
                 </Link>
               </p>
