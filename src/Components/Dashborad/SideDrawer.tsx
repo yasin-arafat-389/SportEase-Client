@@ -1,13 +1,20 @@
 import { Card, Drawer, List, ListItemPrefix } from "@material-tailwind/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { FaPowerOff } from "react-icons/fa";
+import { FaCalendarCheck, FaPowerOff } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdDashboard } from "react-icons/md";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { logout, selectCurrentUser } from "../../Redux/Features/Auth/authSlice";
+import {
+  logout,
+  selectCurrentUser,
+  useCurrentToken,
+} from "../../Redux/Features/Auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import { CustomJwtPayload } from "../../Types/Types";
+import { jwtDecode } from "jwt-decode";
+import { BsBuildingFillAdd } from "react-icons/bs";
 
 const SideDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +25,10 @@ const SideDrawer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loggedInUser = useAppSelector(selectCurrentUser);
+
+  const token = useAppSelector(useCurrentToken);
+
+  const user = jwtDecode<CustomJwtPayload>(token as string);
 
   const handleLogOut = () => {
     dispatch(logout());
@@ -76,6 +87,50 @@ const SideDrawer = () => {
                   Overview
                 </div>
               </NavLink>
+
+              {/* User Routes */}
+              {user?.role === "user" && (
+                <NavLink
+                  onClick={closeDrawer}
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
+                  to="/my-bookings"
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <FaCalendarCheck fontSize={"20"} />
+                    </ListItemPrefix>
+                    My Bookings
+                  </div>
+                </NavLink>
+              )}
+
+              {/* Admin Routes */}
+              {user?.role === "admin" && (
+                <NavLink
+                  onClick={closeDrawer}
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
+                  to="/facility-management"
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <BsBuildingFillAdd fontSize={"20"} />
+                    </ListItemPrefix>
+                    Facilities
+                  </div>
+                </NavLink>
+              )}
 
               {/* Common route */}
               <button className="bg-transparent hover:bg-blue-100 rounded-lg">

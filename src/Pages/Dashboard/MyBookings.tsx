@@ -11,15 +11,14 @@ import { formatDate } from "../../Utils/formatDate";
 import { convertTo12HourFormat } from "../../Utils/timeConversion";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import { FacilityDetails } from "../../Types/Types";
 
 const MyBookings = () => {
   const { data: bookings, isLoading } = useGetBookingsByUserQuery(undefined);
   const [cancelBooking] = useCancelBookingMutation();
 
   const [open, setOpen] = useState(false);
-  const [details, setDetails] = useState("");
-
-  console.log(details);
+  const [details, setDetails] = useState<FacilityDetails | null>(null);
 
   const handleOpen = (details: any) => {
     setOpen(!open);
@@ -74,7 +73,7 @@ const MyBookings = () => {
           >
             <div className="relative flex items-end overflow-hidden rounded-xl">
               <img
-                src="https://t3.ftcdn.net/jpg/02/32/88/30/360_F_232883099_h2q9uphANCzZ4FRYvULnIg95UyGYF27m.jpg"
+                src={item.facility.image}
                 alt="Hotel Photo"
                 className="h-[200px] w-full"
               />

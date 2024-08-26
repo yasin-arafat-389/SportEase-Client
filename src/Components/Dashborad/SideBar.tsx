@@ -12,6 +12,7 @@ import {
 import toast from "react-hot-toast";
 import { jwtDecode } from "jwt-decode";
 import { CustomJwtPayload } from "../../Types/Types";
+import { BsBuildingFillAdd } from "react-icons/bs";
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();
@@ -20,8 +21,6 @@ const Sidebar = () => {
   const token = useAppSelector(useCurrentToken);
 
   const user = jwtDecode<CustomJwtPayload>(token as string);
-
-  console.log(user);
 
   const handleLogOut = () => {
     dispatch(logout());
@@ -81,6 +80,27 @@ const Sidebar = () => {
                       <FaCalendarCheck fontSize={"20"} />
                     </ListItemPrefix>
                     My Bookings
+                  </div>
+                </NavLink>
+              )}
+
+              {/* Admin Routes */}
+              {user?.role === "admin" && (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
+                  to="/facility-management"
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <BsBuildingFillAdd fontSize={"20"} />
+                    </ListItemPrefix>
+                    Facilities
                   </div>
                 </NavLink>
               )}

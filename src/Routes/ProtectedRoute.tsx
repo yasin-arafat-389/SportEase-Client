@@ -2,7 +2,8 @@ import { ReactNode } from "react";
 import { useCurrentToken } from "../Redux/Features/Auth/authSlice";
 import { useAppSelector } from "../Redux/hooks";
 import { Navigate } from "react-router-dom";
-import { verifyToken } from "../Utils/verifyToken";
+import { jwtDecode } from "jwt-decode";
+import { CustomJwtPayload } from "../Types/Types";
 
 type TProtectedRoute = {
   children: ReactNode;
@@ -15,7 +16,7 @@ const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
   let user;
 
   if (token) {
-    user = verifyToken(token);
+    user = jwtDecode<CustomJwtPayload>(token);
   }
 
   console.log(user);

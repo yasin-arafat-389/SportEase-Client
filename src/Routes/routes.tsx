@@ -14,6 +14,7 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Overview from "../Pages/Dashboard/Overview";
 import ProtectedRoute from "./ProtectedRoute";
 import MyBookings from "../Pages/Dashboard/MyBookings";
+import FacilityManagement from "../Pages/Dashboard/FacilityManagement";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute role="user">
             <MyBookings />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/facility-management",
+        element: (
+          <ProtectedRoute role="admin">
+            <FacilityManagement />
           </ProtectedRoute>
         ),
       },

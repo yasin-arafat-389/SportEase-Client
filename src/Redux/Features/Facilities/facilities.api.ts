@@ -30,6 +30,24 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["bookingsByUser"],
+    }),
+
+    deleteFacility: builder.mutation({
+      query: (id) => ({
+        url: `/facility/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["facilities"],
+    }),
+
+    updateFacility: builder.mutation({
+      query: ({ id, payload }) => ({
+        url: `/facility/${id}`,
+        method: "PUT",
+        body: payload,
+      }),
+      invalidatesTags: ["facilities"],
     }),
   }),
 });
@@ -39,4 +57,6 @@ export const {
   useGetFacilityDetailsQuery,
   useCheckAvailabilityMutation,
   useCreateBookingMutation,
+  useDeleteFacilityMutation,
+  useUpdateFacilityMutation,
 } = authApi;

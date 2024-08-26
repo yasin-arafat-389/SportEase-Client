@@ -10,6 +10,7 @@ import { FormEvent, useState } from "react";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { convertTo12HourFormat } from "../Utils/timeConversion";
 import toast from "react-hot-toast";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 const Booking = () => {
   const { id } = useParams();
@@ -48,8 +49,24 @@ const Booking = () => {
 
     const res = await createNewBooking(payload);
 
+    // if (res.error) {
+    //   toast.error(res.error.data.message);
+    // } else {
+    //   console.log(res.data.data.initializePayment);
+
+    //   if (res.data.data.initializePayment.result === "true") {
+    //     window.location.href = res.data.data.initializePayment.payment_url;
+    //   }
+    // }
+
     if (res.error) {
-      toast.error(res.error.data.message);
+      const errorData = res.error as FetchBaseQueryError;
+
+      if (errorData && "data" in errorData) {
+        toast.error((errorData.data as any).message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } else {
       console.log(res.data.data.initializePayment);
 
