@@ -8,8 +8,6 @@ import Loader from "../Utils/Loader";
 const Facilities = () => {
   const { data: facilities, isLoading } = useGetAllFacilitiesQuery(undefined);
 
-  console.log(facilities);
-
   if (isLoading) {
     return <Loader />;
   }

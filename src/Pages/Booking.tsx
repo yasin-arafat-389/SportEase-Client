@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   useCheckAvailabilityMutation,
   useCreateBookingMutation,
@@ -13,7 +13,6 @@ import toast from "react-hot-toast";
 
 const Booking = () => {
   const { id } = useParams();
-  let navigate = useNavigate();
 
   const { data: facility, isLoading } = useGetFacilityDetailsQuery(id);
 
@@ -52,8 +51,11 @@ const Booking = () => {
     if (res.error) {
       toast.error(res.error.data.message);
     } else {
-      toast.success("Booking created Successfully");
-      navigate("/dashboard");
+      console.log(res.data.data.initializePayment);
+
+      if (res.data.data.initializePayment.result === "true") {
+        window.location.href = res.data.data.initializePayment.payment_url;
+      }
     }
   };
 
@@ -71,7 +73,7 @@ const Booking = () => {
           </h2>
 
           <p className="text-2xl font-bold text-gray-800 mb-6">
-            ৳ 49.99 per hour
+            ৳ {facility?.data?.pricePerHour} per hour
           </p>
 
           <div className="mt-10">
