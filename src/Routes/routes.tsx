@@ -10,6 +10,8 @@ import Facilities from "../Pages/Facilities";
 import FacilitiesDetails from "../Pages/FacilitiesDetails";
 import Booking from "../Pages/Booking";
 import PrivateRoute from "./PrivateRoute";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import Overview from "../Pages/Dashboard/Overview";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,20 @@ const router = createBrowserRouter([
             <Booking />
           </PrivateRoute>
         ),
+      },
+    ],
+  },
+
+  // Dashboard Routes
+
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Overview />,
       },
     ],
   },
