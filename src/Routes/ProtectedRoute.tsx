@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
-import { logout, useCurrentToken } from "../Redux/Features/Auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../Redux/hooks";
+import { useCurrentToken } from "../Redux/Features/Auth/authSlice";
+import { useAppSelector } from "../Redux/hooks";
 import { Navigate } from "react-router-dom";
 import { verifyToken } from "../Utils/verifyToken";
-import toast from "react-hot-toast";
 
 type TProtectedRoute = {
   children: ReactNode;
@@ -21,12 +20,8 @@ const ProtectedRoute = ({ children, role }: TProtectedRoute) => {
 
   console.log(user);
 
-  const dispatch = useAppDispatch();
-
   if (role !== undefined && role !== user?.role) {
-    dispatch(logout());
-    toast.error("You must login first!");
-    return <Navigate to="/login" replace={true} />;
+    return <Navigate to="/dashboard" replace={true} />;
   }
 
   if (!token) {

@@ -12,6 +12,8 @@ import Booking from "../Pages/Booking";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Overview from "../Pages/Dashboard/Overview";
+import ProtectedRoute from "./ProtectedRoute";
+import MyBookings from "../Pages/Dashboard/MyBookings";
 
 const router = createBrowserRouter([
   {
@@ -61,13 +63,29 @@ const router = createBrowserRouter([
   // Dashboard Routes
 
   {
-    path: "/dashboard",
-    element: <DashboardLayout />,
+    path: "/",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/dashboard",
-        element: <Overview />,
+        element: (
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-bookings",
+        element: (
+          <ProtectedRoute role="user">
+            <MyBookings />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

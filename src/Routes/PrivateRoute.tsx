@@ -13,7 +13,7 @@ const PrivateRoute = ({ children }: TProtectedRoute) => {
 
   if (!token) {
     toast.error("You must login first");
-    return <Navigate state={location.pathname} to="/login" replace={true} />;
+    return <Navigate to="/login" replace={true} />;
   }
 
   return <div>{children}</div>;
