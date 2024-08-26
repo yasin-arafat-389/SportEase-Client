@@ -6,7 +6,7 @@ const Overview = () => {
 
   return (
     <div>
-      <div className="bg-[#F5EDED] font-[sans-serif] relative max-w-4xl shadow-lg shadow-[#e9d9f3] mx-auto rounded overflow-hidden">
+      <div className="bg-[#EECEB9] font-[sans-serif] relative max-w-4xl shadow-lg shadow-[#e9d9f3] mx-auto rounded overflow-hidden">
         <div className="grid sm:grid-cols-2 max-sm:gap-6">
           <div className="text-center p-6 flex flex-col justify-center items-center">
             <h3 className="font-extrabold text-3xl text-secondary leading-tight">
