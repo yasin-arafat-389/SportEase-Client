@@ -7,8 +7,6 @@ const FacilitiesDetails = () => {
 
   const { data: facility, isLoading } = useGetFacilityDetailsQuery(id);
 
-  console.log(facility);
-
   if (isLoading) {
     return <Loader />;
   }

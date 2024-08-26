@@ -55,8 +55,8 @@ const Facilities = () => {
 
             <form onSubmit={(e) => e.preventDefault()}>
               <Input
-                color="green"
-                label="Search Product"
+                color="orange"
+                label="Search Facility"
                 icon={<IoSearchSharp size={"20"} className="font-bold" />}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}

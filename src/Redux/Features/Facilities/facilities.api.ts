@@ -16,7 +16,27 @@ const authApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    checkAvailability: builder.mutation({
+      query: (date) => ({
+        url: `/check-availability?date=${date}`,
+        method: "POST",
+      }),
+    }),
+
+    createBooking: builder.mutation({
+      query: (payload) => ({
+        url: `/bookings`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllFacilitiesQuery, useGetFacilityDetailsQuery } = authApi;
+export const {
+  useGetAllFacilitiesQuery,
+  useGetFacilityDetailsQuery,
+  useCheckAvailabilityMutation,
+  useCreateBookingMutation,
+} = authApi;
