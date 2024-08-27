@@ -16,6 +16,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import MyBookings from "../Pages/Dashboard/MyBookings";
 import FacilityManagement from "../Pages/Dashboard/FacilityManagement";
 import ViewAllBookings from "../Pages/Dashboard/ViewAllBookings";
+import AddNewAdmin from "../Pages/Dashboard/AddNewAdmin";
 
 const router = createBrowserRouter([
   {
@@ -102,6 +103,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute role="admin">
             <ViewAllBookings />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/add-new-admin",
+        element: (
+          <ProtectedRoute role="admin">
+            <AddNewAdmin />
           </ProtectedRoute>
         ),
       },

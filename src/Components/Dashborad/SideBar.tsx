@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { jwtDecode } from "jwt-decode";
 import { CustomJwtPayload } from "../../Types/Types";
 import { BsBuildingFillAdd } from "react-icons/bs";
+import { RiAdminFill } from "react-icons/ri";
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();
@@ -121,6 +122,26 @@ const Sidebar = () => {
                       <FaCalendarCheck fontSize={"20"} />
                     </ListItemPrefix>
                     All Bookings
+                  </div>
+                </NavLink>
+              )}
+
+              {user?.role === "admin" && (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
+                  to="/add-new-admin"
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <RiAdminFill fontSize={"20"} />
+                    </ListItemPrefix>
+                    Add New Admin
                   </div>
                 </NavLink>
               )}
