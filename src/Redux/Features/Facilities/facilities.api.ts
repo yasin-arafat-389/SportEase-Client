@@ -49,6 +49,15 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["facilities"],
     }),
+
+    createFacility: builder.mutation({
+      query: (payload) => ({
+        url: `/facility`,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["facilities"],
+    }),
   }),
 });
 
@@ -59,4 +68,5 @@ export const {
   useCreateBookingMutation,
   useDeleteFacilityMutation,
   useUpdateFacilityMutation,
+  useCreateFacilityMutation,
 } = authApi;

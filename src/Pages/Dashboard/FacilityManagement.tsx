@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Swal from "sweetalert2";
 import {
+  useCreateFacilityMutation,
   useDeleteFacilityMutation,
   useGetAllFacilitiesQuery,
   useUpdateFacilityMutation,
@@ -11,6 +11,8 @@ import { FormEvent, useState } from "react";
 import { Button, Dialog, Input, Textarea } from "@material-tailwind/react";
 import { Facility } from "../../Types/Types";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { IoMdAddCircle } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const FacilityManagement = () => {
   const { data: facilities, isLoading } = useGetAllFacilitiesQuery(undefined);
@@ -18,22 +20,6 @@ const FacilityManagement = () => {
   const [deletFacility] = useDeleteFacilityMutation();
   const [updateFacility, { isLoading: isUpdateFacilityLoading }] =
     useUpdateFacilityMutation();
-
-  const handleDeleteFacility = (id: string) => {
-    Swal.fire({
-      title: "Are you sure you want to cancel this booking?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        deletFacility(id);
-        toast.success("Facility deleted successfully!");
-      }
-    });
-  };
 
   const [open, setOpen] = useState(false);
   const [details, setDetails] = useState<Facility | null>(null);
@@ -79,6 +65,53 @@ const FacilityManagement = () => {
     }
   };
 
+  const handleDeleteFacility = (id: string) => {
+    Swal.fire({
+      title: "Are you sure you want to delete this facility?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deletFacility(id);
+        toast.success("Facility deleted successfully!");
+      }
+    });
+  };
+
+  // Creating new facility
+  const [createFacility, { isLoading: isCreateFacilityLoading }] =
+    useCreateFacilityMutation();
+
+  const [openCreateFacilityModal, setOpenCreateFacilityModal] = useState(false);
+  const [newName, setNewName] = useState<string>("");
+  const [newDescription, setNewDescription] = useState<string>("");
+  const [newPricePerHour, setNewPricePerHour] = useState<number>(0);
+  const [newLocation, setNewLocation] = useState<string>("");
+  const [newImage, setNewImage] = useState<string>("");
+
+  const handleCreateFacilityModalOpen = () => {
+    setOpenCreateFacilityModal(!openCreateFacilityModal);
+  };
+
+  const handleCreateFacility = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const payload = {
+      name: newName,
+      description: newDescription,
+      pricePerHour: newPricePerHour,
+      location: newLocation,
+      image: newImage,
+    };
+
+    await createFacility(payload);
+    setOpenCreateFacilityModal(!openCreateFacilityModal);
+    toast.success("Facility created successfully!");
+  };
+
   if (isLoading) {
     return <LoaderForDashboard />;
   }
@@ -87,6 +120,19 @@ const FacilityManagement = () => {
     <div>
       <div className="w-full py-2 bg-secondary rounded-lg">
         <h1 className="text-white text-xl text-center">All Facilites</h1>
+      </div>
+
+      <div className="flex justify-center items-center my-5">
+        <Button
+          onClick={handleCreateFacilityModalOpen}
+          className="bg-button flex justify-center items-center gap-2 capitalize text-lg"
+          placeholder={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        >
+          <IoMdAddCircle size={20} />
+          <span>Create Facility</span>
+        </Button>
       </div>
 
       <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -113,25 +159,23 @@ const FacilityManagement = () => {
               </span>
             </div>
 
-            <div
-              onClick={() => handleOpen(item)}
-              className="flex justify-center items-center gap-5 mt-3"
-            >
-              <button className="inline-block flex-1 rounded-lg bg-button p-2 px-3 text-center text-sm font-semibold text-white outline-none transition duration-100 hover:bg-button-dark sm:flex-none md:text-base">
+            <div onClick={() => handleOpen(item)}>
+              <button className="w-full rounded-lg bg-button p-2 px-3 text-center text-sm font-semibold text-white outline-none transition duration-100 hover:bg-button-dark sm:flex-none md:text-base">
                 Edit
               </button>
-
-              <button
-                onClick={() => handleDeleteFacility(item._id)}
-                className="inline-block flex-1 rounded-lg bg-red-700 p-2 px-3 text-center text-sm font-semibold text-white outline-none transition duration-100 sm:flex-none md:text-base"
-              >
-                Delete
-              </button>
             </div>
+
+            <button
+              onClick={() => handleDeleteFacility(item._id)}
+              className="w-full mt-3 rounded-lg bg-red-700 p-2 px-3 text-center text-sm font-semibold text-white outline-none transition duration-100 sm:flex-none md:text-base"
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
 
+      {/* Update Modal */}
       <Dialog
         open={open}
         size="sm"
@@ -168,6 +212,7 @@ const FacilityManagement = () => {
             />
 
             <Input
+              type="number"
               defaultValue={details?.pricePerHour}
               value={pricePerHour}
               onChange={(e) => setPricePerHour(Number(e.target.value))}
@@ -214,6 +259,92 @@ const FacilityManagement = () => {
                 </div>
               ) : (
                 "Update"
+              )}
+            </Button>
+          </form>
+        </div>
+      </Dialog>
+
+      {/* Create Modal */}
+      <Dialog
+        open={openCreateFacilityModal}
+        size="sm"
+        handler={handleCreateFacilityModalOpen}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+      >
+        <div className="p-4">
+          <h1 className="text-center text-lg text-gray-700">
+            Create New Facility
+          </h1>
+
+          <form
+            onSubmit={handleCreateFacility}
+            className="mt-5 flex flex-col gap-5"
+          >
+            <Input
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              label="Facility Name"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
+
+            <Textarea
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+              label="Description"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
+
+            <Input
+              type="number"
+              value={newPricePerHour}
+              onChange={(e) => setNewPricePerHour(Number(e.target.value))}
+              label="Price per hour"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
+
+            <Input
+              value={newLocation}
+              onChange={(e) => setNewLocation(e.target.value)}
+              label="Location"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
+
+            <Input
+              value={newImage}
+              onChange={(e) => setNewImage(e.target.value)}
+              label="Image"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+              crossOrigin={undefined}
+            />
+
+            <Button
+              disabled={isCreateFacilityLoading}
+              type="submit"
+              className="bg-button"
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
+              {isCreateFacilityLoading ? (
+                <div className="flex gap-3 justify-center items-center text-2xl">
+                  <div className="animate-spin ">
+                    <TbFidgetSpinner />
+                  </div>
+                  <span className="text-lg">Please Wait</span>
+                </div>
+              ) : (
+                "Create"
               )}
             </Button>
           </form>

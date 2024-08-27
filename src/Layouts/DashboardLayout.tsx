@@ -4,7 +4,7 @@ import Sidebar from "../Components/Dashborad/SideBar";
 
 const DashboardLayout = () => {
   return (
-    <div className="bg-[#F5EDED] py-4 h-screen">
+    <div className="py-4">
       <div className=" w-[90%] mx-auto  ">
         {/* Top Banner */}
         <div
