@@ -15,6 +15,7 @@ import Overview from "../Pages/Dashboard/Overview";
 import ProtectedRoute from "./ProtectedRoute";
 import MyBookings from "../Pages/Dashboard/MyBookings";
 import FacilityManagement from "../Pages/Dashboard/FacilityManagement";
+import ViewAllBookings from "../Pages/Dashboard/ViewAllBookings";
 
 const router = createBrowserRouter([
   {
@@ -93,6 +94,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute role="admin">
             <FacilityManagement />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/all-bookings",
+        element: (
+          <ProtectedRoute role="admin">
+            <ViewAllBookings />
           </ProtectedRoute>
         ),
       },

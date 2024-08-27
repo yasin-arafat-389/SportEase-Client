@@ -105,6 +105,26 @@ const Sidebar = () => {
                 </NavLink>
               )}
 
+              {user?.role === "admin" && (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "active" : "text-lg rounded-lg hover:bg-blue-100"
+                  }
+                  to="/all-bookings"
+                >
+                  <div className="flex p-3 font-bold">
+                    <ListItemPrefix
+                      placeholder={undefined}
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    >
+                      <FaCalendarCheck fontSize={"20"} />
+                    </ListItemPrefix>
+                    All Bookings
+                  </div>
+                </NavLink>
+              )}
+
               {/* Common route */}
               <button className="bg-transparent hover:bg-blue-100 rounded-lg">
                 <Link to={"/"} className="flex p-3 font-bold">

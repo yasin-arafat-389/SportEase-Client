@@ -17,7 +17,19 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["bookingsByUser"],
     }),
+
+    getAllBookings: builder.query({
+      query: () => ({
+        url: "/bookings",
+        method: "GET",
+      }),
+      providesTags: ["getAllBookings"],
+    }),
   }),
 });
 
-export const { useGetBookingsByUserQuery, useCancelBookingMutation } = authApi;
+export const {
+  useGetBookingsByUserQuery,
+  useCancelBookingMutation,
+  useGetAllBookingsQuery,
+} = authApi;
