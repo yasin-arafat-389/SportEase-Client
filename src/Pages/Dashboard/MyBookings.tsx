@@ -120,7 +120,7 @@ const MyBookings = () => {
           <div className="rounded-xl p-3 shadow-2xl hover:shadow-xl">
             <div className="relative flex items-end overflow-hidden rounded-xl">
               <img
-                src="https://t3.ftcdn.net/jpg/02/32/88/30/360_F_232883099_h2q9uphANCzZ4FRYvULnIg95UyGYF27m.jpg"
+                src={details?.facility?.image}
                 alt="Hotel Photo"
                 className="h-[200px] w-full"
               />
