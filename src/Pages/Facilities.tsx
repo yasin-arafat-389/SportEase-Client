@@ -4,13 +4,42 @@ import { IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useGetAllFacilitiesQuery } from "../Redux/Features/Facilities/facilities.api";
 import Loader from "../Utils/Loader";
+import { useState } from "react";
 
 const Facilities = () => {
   const { data: facilities, isLoading } = useGetAllFacilitiesQuery(undefined);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
   if (isLoading) {
     return <Loader />;
   }
+
+  const totalItems = facilities?.data?.length || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    scrollToTop();
+  };
+
+  const currentData = facilities?.data
+    ?.filter(
+      (facility: any) =>
+        facility.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        facility.location.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <div>
@@ -56,6 +85,8 @@ const Facilities = () => {
                 color="orange"
                 label="Search Facility"
                 icon={<IoSearchSharp size={"20"} className="font-bold" />}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 onPointerEnterCapture={undefined}
                 onPointerLeaveCapture={undefined}
                 crossOrigin={undefined}
@@ -64,7 +95,7 @@ const Facilities = () => {
           </div>
 
           <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
-            {facilities?.data?.map((facility: any, index: number) => (
+            {currentData?.map((facility: any, index: number) => (
               <div
                 key={index}
                 className="rounded-xl bg-[#FCF8F3] p-3 shadow-2xl hover:shadow-xl"
@@ -72,7 +103,7 @@ const Facilities = () => {
                 <div className="relative flex items-end overflow-hidden rounded-xl">
                   <img
                     src={facility.image}
-                    alt="Hotel Photo"
+                    alt="Facility Photo"
                     className="h-[200px] w-full"
                   />
                 </div>
@@ -95,6 +126,40 @@ const Facilities = () => {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div
+            className={`${
+              searchQuery ? "hidden" : ""
+            }  flex justify-center mt-8`}
+          >
+            <button
+              disabled={currentPage === 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+              className="mx-2 px-4 py-2 bg-button text-white rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            {[...Array(totalPages).keys()].map((pageNumber) => (
+              <button
+                key={pageNumber}
+                onClick={() => handlePageChange(pageNumber + 1)}
+                className={`mx-2 px-4 py-2 rounded ${
+                  currentPage === pageNumber + 1
+                    ? "bg-button text-white"
+                    : "bg-gray-300 text-gray-800"
+                }`}
+              >
+                {pageNumber + 1}
+              </button>
+            ))}
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => handlePageChange(currentPage + 1)}
+              className="mx-2 px-4 py-2 bg-button text-white rounded disabled:opacity-50"
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>

@@ -8,3 +8,13 @@
   color: white;
   border-radius: 10px;
 }
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: white !important;
+  background-color: rgb(251, 140, 0);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 30px !important;
+  font-weight: bold;
+}

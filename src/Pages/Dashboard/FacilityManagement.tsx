@@ -112,6 +112,31 @@ const FacilityManagement = () => {
     toast.success("Facility created successfully!");
   };
 
+  // Pagination
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const totalItems = facilities?.data?.length || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    scrollToTop();
+  };
+
+  const currentData = facilities?.data?.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   if (isLoading) {
     return <LoaderForDashboard />;
   }
@@ -136,7 +161,7 @@ const FacilityManagement = () => {
       </div>
 
       <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {facilities?.data?.map((item: any, index: number) => (
+        {currentData?.map((item: any, index: number) => (
           <div
             key={index}
             className="rounded-xl p-3 shadow-2xl hover:shadow-xl border-2 border-green-700"
@@ -173,6 +198,36 @@ const FacilityManagement = () => {
             </button>
           </div>
         ))}
+      </div>
+
+      <div className={`flex justify-center mt-14 mb-8`}>
+        <button
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+          className="mx-2 px-4 py-2 bg-button text-white rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        {[...Array(totalPages).keys()].map((pageNumber) => (
+          <button
+            key={pageNumber}
+            onClick={() => handlePageChange(pageNumber + 1)}
+            className={`mx-2 px-4 py-2 rounded ${
+              currentPage === pageNumber + 1
+                ? "bg-button text-white"
+                : "bg-gray-300 text-gray-800"
+            }`}
+          >
+            {pageNumber + 1}
+          </button>
+        ))}
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+          className="mx-2 px-4 py-2 bg-button text-white rounded disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
 
       {/* Update Modal */}
@@ -284,6 +339,7 @@ const FacilityManagement = () => {
             className="mt-5 flex flex-col gap-5"
           >
             <Input
+              required
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               label="Facility Name"
@@ -293,6 +349,7 @@ const FacilityManagement = () => {
             />
 
             <Textarea
+              required
               value={newDescription}
               onChange={(e) => setNewDescription(e.target.value)}
               label="Description"
@@ -301,6 +358,7 @@ const FacilityManagement = () => {
             />
 
             <Input
+              required
               type="number"
               value={newPricePerHour}
               onChange={(e) => setNewPricePerHour(Number(e.target.value))}
@@ -311,6 +369,7 @@ const FacilityManagement = () => {
             />
 
             <Input
+              required
               value={newLocation}
               onChange={(e) => setNewLocation(e.target.value)}
               label="Location"
@@ -320,6 +379,7 @@ const FacilityManagement = () => {
             />
 
             <Input
+              required
               value={newImage}
               onChange={(e) => setNewImage(e.target.value)}
               label="Image"

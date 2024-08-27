@@ -42,7 +42,7 @@ const AddNewAdmin = () => {
         <h1 className="text-white text-xl text-center">Add a new admin</h1>
       </div>
 
-      <div className="flex justify-center items-center mt-6 w-full md:w-[40%] ml-5 py-10 px-5 border-2 border-gray-700 rounded-lg">
+      <div className="flex justify-center items-center mt-6 w-full md:w-[40%] ml-0 md:ml-5 py-10 px-5 border-2 border-gray-700 rounded-lg">
         <form className="bg-white" onSubmit={handleCreateAdmin}>
           <div className="flex items-center border-2 py-2 px-3 border-gray-500 rounded-2xl mb-4">
             <svg
