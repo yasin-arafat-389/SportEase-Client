@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Drawer } from "@material-tailwind/react";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import ProfileMenu from "./ProfileMenu";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
@@ -17,7 +18,11 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-between items-center bg-primary py-3 px-10 md:px-10 lg:px-20 shadow-xl sticky top-0 z-20">
-      <img src={logo} className="w-[180px] md:w-[170px] lg:w-[230px]" />
+      <img
+        onClick={() => navigate("/")}
+        src={logo}
+        className="w-[180px] md:w-[170px] lg:w-[230px] cursor-pointer"
+      />
 
       <div className="hidden md:hidden lg:flex gap-7 justify-center items-center text-lg font-bold">
         <NavLink to={"/"}>Home</NavLink>

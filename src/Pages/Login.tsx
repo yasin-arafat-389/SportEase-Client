@@ -8,8 +8,8 @@ import { selectCurrentUser, setUser } from "../Redux/Features/Auth/authSlice";
 import { TbFidgetSpinner } from "react-icons/tb";
 
 const Login = () => {
-  const [email, setEmail] = useState("emon@gmail.com");
-  const [password, setPassword] = useState("abcd1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -69,7 +69,6 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  defaultValue="emon@gmail.com"
                 />
               </div>
 
