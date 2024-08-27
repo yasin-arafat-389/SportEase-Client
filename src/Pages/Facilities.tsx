@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Input, Option, Select } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
 import { IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useGetAllFacilitiesQuery } from "../Redux/Features/Facilities/facilities.api";
@@ -10,6 +10,8 @@ const Facilities = () => {
   const { data: facilities, isLoading } = useGetAllFacilitiesQuery(undefined);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [priceRange, setPriceRange] = useState<string>("");
+
   const itemsPerPage = 6;
 
   const scrollToTop = () => {
@@ -19,7 +21,7 @@ const Facilities = () => {
     });
   };
 
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   if (isLoading) {
     return <Loader />;
@@ -34,12 +36,38 @@ const Facilities = () => {
   };
 
   const currentData = facilities?.data
-    ?.filter(
-      (facility: any) =>
+    ?.filter((facility: any) => {
+      const matchesSearch =
         facility.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        facility.location.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+        facility.location.toLowerCase().includes(searchQuery.toLowerCase());
+
+      if (priceRange) {
+        const [rangeStart, rangeEnd] = priceRange.split("-").map(Number);
+        const price = facility.pricePerHour;
+        return matchesSearch && price >= rangeStart && price <= rangeEnd;
+      }
+
+      return matchesSearch;
+    })
     .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  // Filtering
+  const getPriceRanges = () => {
+    if (!facilities?.data?.length) return [];
+
+    const prices = facilities.data.map(
+      (facility: any) => facility.pricePerHour
+    );
+
+    const maxPrice = Math.max(...prices);
+
+    const ranges: string[] = [];
+    for (let start = 0; start <= maxPrice; start += 50) {
+      const end = start + 49;
+      ranges.push(`${start}-${end}`);
+    }
+    return ranges;
+  };
 
   return (
     <div>
@@ -57,28 +85,21 @@ const Facilities = () => {
       <div className="bg-[#F5EDED]">
         <div className="py-20">
           <div className="max-w-screen-xl mx-auto mb-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
-            {/* <select className="outline-none px-7 py-2 md:py-0 rounded-lg bg-[#D6EFD8] border border-[#1A5319]">
-              <option value="" disabled>
-                Filter By
-              </option>
-              <option value="Indoor Plants">Indoor Plants</option>
-              <option value="Outdoor Trees">Outdoor Trees</option>
-              <option value="Fruit Bearing Trees">Fruit Bearing Trees</option>
-              <option value="Flower Trees">Flower Trees</option>
-            </select> */}
-
-            <Select
-              label="Filter by price"
-              placeholder={undefined}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
+            <select
+              className="px-5 outline-none rounded-lg text-lg font-bold text-gray-700"
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
             >
-              <Option>Material Tailwind HTML</Option>
-              <Option>Material Tailwind React</Option>
-              <Option>Material Tailwind Vue</Option>
-              <Option>Material Tailwind Angular</Option>
-              <Option>Material Tailwind Svelte</Option>
-            </Select>
+              <option value="" disabled>
+                Filter by Price Per Hour
+              </option>
+              <option value="">All Prices</option>
+              {getPriceRanges().map((range, index) => (
+                <option key={index} value={range}>
+                  {range}
+                </option>
+              ))}
+            </select>
 
             <form onSubmit={(e) => e.preventDefault()}>
               <Input
@@ -129,8 +150,8 @@ const Facilities = () => {
           </div>
 
           <div
-            className={`${
-              searchQuery ? "hidden" : ""
+            className={`${searchQuery ? "hidden" : ""} ${
+              priceRange ? "hidden" : ""
             }  flex justify-center mt-8`}
           >
             <button

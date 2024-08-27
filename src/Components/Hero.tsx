@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Hero = () => {
   return (
     <div>
@@ -7,8 +9,8 @@ const Hero = () => {
             <span className="font-inter text-xs font-medium text-gray-900 ml-3">
               Explore the facilities we offer.
             </span>
-            <a
-              href="javascript:;"
+            <Link
+              to={"/facilities"}
               className="w-8 h-8 rounded-full flex justify-center items-center bg-button"
             >
               <svg
@@ -26,7 +28,7 @@ const Hero = () => {
                   stroke-linejoin="round"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
 
           <h1 className="max-w-2xl mx-auto text-center font-manrope font-bold text-4xl text-gray-900 mb-5 md:text-5xl leading-[50px]">
@@ -38,8 +40,8 @@ const Hero = () => {
             football, hockey, or any other sport, secure your spot with just a
             few clicks.
           </p>
-          <a
-            href="javascript:;"
+          <Link
+            to={"/facilities"}
             className="w-full md:w-auto mb-14 inline-flex items-center justify-center py-3 px-7 text-base font-semibold text-center text-white rounded-full bg-button shadow-xs hover:bg-button-dark transition-all duration-500"
           >
             Book Now
@@ -59,7 +61,7 @@ const Hero = () => {
                 stroke-linejoin="round"
               />
             </svg>
-          </a>
+          </Link>
         </div>
       </section>
     </div>

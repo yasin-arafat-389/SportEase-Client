@@ -2,7 +2,6 @@ import { Link, NavLink } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Drawer } from "@material-tailwind/react";
 import { useState } from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
 import logo from "../Assets/logo.png";
 import { useAppSelector } from "../Redux/hooks";
 import { selectCurrentUser } from "../Redux/Features/Auth/authSlice";
@@ -48,6 +47,7 @@ const Navbar = () => {
       </div>
 
       <Drawer
+        overlay={false}
         open={open}
         onClose={closeDrawer}
         className="p-4 w-[180px]"
@@ -63,17 +63,29 @@ const Navbar = () => {
               Home
             </NavLink>
 
-            <NavLink onClick={closeDrawer} to={"/products"}>
-              Products
+            <NavLink onClick={closeDrawer} to={"/about-us"}>
+              About Us
             </NavLink>
 
-            <NavLink onClick={closeDrawer} to={"/management"}>
-              Management
+            <NavLink onClick={closeDrawer} to={"/contact-us"}>
+              Contact Us
             </NavLink>
 
-            <NavLink onClick={closeDrawer} to={"/cart"}>
-              <HiOutlineShoppingBag size={"30"} />
+            <NavLink onClick={closeDrawer} to={"/facilities"}>
+              Facilities
             </NavLink>
+
+            {user ? (
+              <div>
+                <ProfileMenu />
+              </div>
+            ) : (
+              <Link onClick={closeDrawer} to={"/login"}>
+                <button className="cursor-pointer transition-all bg-button text-white px-4 py-1 rounded-lg border-blue-600 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </Drawer>

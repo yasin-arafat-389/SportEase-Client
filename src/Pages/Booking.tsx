@@ -49,16 +49,6 @@ const Booking = () => {
 
     const res = await createNewBooking(payload);
 
-    // if (res.error) {
-    //   toast.error(res.error.data.message);
-    // } else {
-    //   console.log(res.data.data.initializePayment);
-
-    //   if (res.data.data.initializePayment.result === "true") {
-    //     window.location.href = res.data.data.initializePayment.payment_url;
-    //   }
-    // }
-
     if (res.error) {
       const errorData = res.error as FetchBaseQueryError;
 
@@ -82,14 +72,14 @@ const Booking = () => {
 
   return (
     <div className="bg-[#F5EDED] py-20">
-      <div className="bg-white rounded-lg overflow-hidden shadow-2xl w-[60%] mx-auto">
+      <div className="bg-white rounded-lg overflow-hidden shadow-2xl w-[90%] md:w-[60%] mx-auto">
         <div className="p-1 bg-button"></div>
         <div className="p-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+          <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-4">
             {facility?.data?.name}
           </h2>
 
-          <p className="text-2xl font-bold text-gray-800 mb-6">
+          <p className="text-lg md:text-2xl font-bold text-gray-800 mb-6">
             ৳ {facility?.data?.pricePerHour} per hour
           </p>
 
@@ -97,7 +87,7 @@ const Booking = () => {
             <p className="mb-2 font-bold text-lg text-gray-700">
               Select a date:
             </p>
-            <div className="flex">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-0">
               <input
                 type="date"
                 className="w-[200px] border-button border-2 outline-none p-3 rounded-3xl font-bold"
@@ -142,7 +132,7 @@ const Booking = () => {
                     ))}
                   </div>
 
-                  <div className="mt-10 flex gap-10">
+                  <div className="mt-10 flex flex-col md:flex-row gap-10">
                     <div>
                       <p className="mb-2 font-bold text-lg text-gray-700">
                         Select start time of your slot:

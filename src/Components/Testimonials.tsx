@@ -8,7 +8,7 @@ const Testimonials = () => {
     <div className="mt-10 mb-20">
       <div className="mb-4 flex items-center justify-center gap-8 sm:mb-8 md:mb-5">
         <div className="flex items-center justify-center gap-12">
-          <h2 className="text-2xl font-bold text-gray-800 lg:text-4xl dark:text-white">
+          <h2 className="text-2xl mx-7 md:mx-0 font-bold text-gray-800 lg:text-4xl dark:text-white">
             What our <span className="text-secondary">satisfied clients</span>{" "}
             says about us?
           </h2>
@@ -90,10 +90,10 @@ const Testimonials = () => {
                     <path d="M232,246.857V16H16V416H54.4ZM48,48H200V233.143L48,377.905Z"></path>
                     <path d="M280,416h38.4L496,246.857V16H280ZM312,48H464V233.143L312,377.905Z"></path>
                   </svg>
-                  I love how convenient it is to reserve a tennis court through
-                  this site. I can book a court in just a few clicks, and the
-                  quality of the courts is always excellent. It’s my go-to for
-                  weekend games.
+                  Booking a football field has never been easier! The platform
+                  is super intuitive, and I always find a great spot for my
+                  team’s matches. The facilities are top-notch, and the
+                  experience is always seamless.
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
@@ -107,14 +107,14 @@ const Testimonials = () => {
               </div>
               <div className="bg-button flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-600 dark:text-gray-50">
                 <img
-                  src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg"
                   alt=""
                   className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-300"
                 />
                 <p className="text-xl font-semibold leading-tight">
-                  David Carter
+                  Michael Johnson
                 </p>
-                <p className="text-sm uppercase">Coach, Bangladesh Tennis</p>
+                <p className="text-sm uppercase">Coach, Bangladesh Football</p>
               </div>
             </div>
           </SwiperSlide>
@@ -132,10 +132,10 @@ const Testimonials = () => {
                     <path d="M232,246.857V16H16V416H54.4ZM48,48H200V233.143L48,377.905Z"></path>
                     <path d="M280,416h38.4L496,246.857V16H280ZM312,48H464V233.143L312,377.905Z"></path>
                   </svg>
-                  I love how convenient it is to reserve a tennis court through
-                  this site. I can book a court in just a few clicks, and the
-                  quality of the courts is always excellent. It’s my go-to for
-                  weekend games.
+                  As a hockey enthusiast, finding a good rink has always been
+                  challenging. This site makes it so simple to book, and the
+                  facilities are just what we need for a great game. Highly
+                  recommended!
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
@@ -149,14 +149,12 @@ const Testimonials = () => {
               </div>
               <div className="bg-button flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-600 dark:text-gray-50">
                 <img
-                  src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  src="https://t3.ftcdn.net/jpg/02/00/90/24/360_F_200902415_G4eZ9Ok3Ypd4SZZKjc8nqJyFVp1eOD6V.jpg"
                   alt=""
                   className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-300"
                 />
-                <p className="text-xl font-semibold leading-tight">
-                  David Carter
-                </p>
-                <p className="text-sm uppercase">Coach, Bangladesh Tennis</p>
+                <p className="text-xl font-semibold leading-tight">Jason Lee</p>
+                <p className="text-sm uppercase">Coach, Bangladesh Hockey</p>
               </div>
             </div>
           </SwiperSlide>
@@ -174,10 +172,10 @@ const Testimonials = () => {
                     <path d="M232,246.857V16H16V416H54.4ZM48,48H200V233.143L48,377.905Z"></path>
                     <path d="M280,416h38.4L496,246.857V16H280ZM312,48H464V233.143L312,377.905Z"></path>
                   </svg>
-                  I love how convenient it is to reserve a tennis court through
-                  this site. I can book a court in just a few clicks, and the
-                  quality of the courts is always excellent. It’s my go-to for
-                  weekend games.
+                  This platform has changed the way I play sports. Whether it’s
+                  football, tennis, or hockey, I can easily find and book
+                  amazing facilities near me. The entire process is smooth and
+                  hassle-free.
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
@@ -191,14 +189,14 @@ const Testimonials = () => {
               </div>
               <div className="bg-button flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-600 dark:text-gray-50">
                 <img
-                  src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  src="https://media.istockphoto.com/id/1171169127/photo/headshot-of-cheerful-handsome-man-with-trendy-haircut-and-eyeglasses-isolated-on-gray.jpg?s=612x612&w=0&k=20&c=yqAKmCqnpP_T8M8I5VTKxecri1xutkXH7zfybnwVWPQ="
                   alt=""
                   className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-300"
                 />
                 <p className="text-xl font-semibold leading-tight">
-                  David Carter
+                  Chris Martinez
                 </p>
-                <p className="text-sm uppercase">Coach, Bangladesh Tennis</p>
+                <p className="text-sm uppercase">Manager, Sports Comittee</p>
               </div>
             </div>
           </SwiperSlide>
