@@ -14,7 +14,7 @@ const Gallery = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-2xl shadow-lg group">
               <img
-                src="https://images.pexels.com/photos/3657154/pexels-photo-3657154.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                src="https://cdn.britannica.com/63/211663-050-A674D74C/Jonny-Bairstow-batting-semifinal-match-England-Australia-2019.jpg"
                 alt="Nature"
                 className="w-full h-full object-cover"
               />
@@ -44,7 +44,7 @@ const Gallery = () => {
 
             <div className="relative overflow-hidden rounded-2xl shadow-lg group">
               <img
-                src="https://www.economist.com/content-assets/images/20230128_BLP504.jpg"
+                src="https://img.olympics.com/images/image/private/t_s_pog_staticContent_hero_xl_2x/f_auto/v1685217239/primary/g5bqth2bvtqpwicn1f0c"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

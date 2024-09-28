@@ -1,3 +1,13 @@
+import googlePlaySVG from "../Assets/google-play-badge-logo.svg";
+import appleStoreSVG from "../Assets/download-on-the-app-store-apple-logo.svg";
+import facebookSVG from "../Assets/facebook-3-logo.svg";
+import twitterSVG from "../Assets/twitter-3-logo.svg";
+import instagramSVG from "../Assets/instagram-2-1-logo.svg";
+import githubSVG from "../Assets/github.svg";
+import linkedinSVG from "../Assets/linkedin.svg";
+import dribbleSVG from "../Assets/dribbble.svg";
+import iconSVG from "../Assets/path.svg";
+
 const Footer = () => {
   return (
     <div>
@@ -64,60 +74,25 @@ const Footer = () => {
 
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="flex flex-1 gap-4 hover:cursor-pointer">
-              <img
-                src="https://www.svgrepo.com/show/303139/google-play-badge-logo.svg"
-                width="130"
-                height="110"
-                alt=""
-              />
-              <img
-                src="https://www.svgrepo.com/show/303128/download-on-the-app-store-apple-logo.svg"
-                width="130"
-                height="110"
-                alt=""
-              />
+              <img src={googlePlaySVG} width="130" height="110" alt="" />
+              <img src={appleStoreSVG} width="130" height="110" alt="" />
             </div>
 
             <div className="flex gap-4 hover:cursor-pointer">
+              <img src={facebookSVG} width="30" height="30" alt="fb" />
+              <img src={twitterSVG} width="30" height="30" alt="tw" />
+              <img src={instagramSVG} width="30" height="30" alt="inst" />
               <img
-                src="https://www.svgrepo.com/show/303114/facebook-3-logo.svg"
-                width="30"
-                height="30"
-                alt="fb"
-              />
-              <img
-                src="https://www.svgrepo.com/show/303115/twitter-3-logo.svg"
-                width="30"
-                height="30"
-                alt="tw"
-              />
-              <img
-                src="https://www.svgrepo.com/show/303145/instagram-2-1-logo.svg"
-                width="30"
-                height="30"
-                alt="inst"
-              />
-              <img
-                src="https://www.svgrepo.com/show/94698/github.svg"
+                src={githubSVG}
                 className=""
                 width="30"
                 height="30"
                 alt="gt"
               />
+              <img src={iconSVG} width="30" height="30" alt="pn" />
+              <img src={linkedinSVG} width="30" height="30" alt="in" />
               <img
-                src="https://www.svgrepo.com/show/22037/path.svg"
-                width="30"
-                height="30"
-                alt="pn"
-              />
-              <img
-                src="https://www.svgrepo.com/show/28145/linkedin.svg"
-                width="30"
-                height="30"
-                alt="in"
-              />
-              <img
-                src="https://www.svgrepo.com/show/22048/dribbble.svg"
+                src={dribbleSVG}
                 className=""
                 width="30"
                 height="30"

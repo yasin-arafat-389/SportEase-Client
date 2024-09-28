@@ -65,7 +65,7 @@ const Testimonials = () => {
               </div>
               <div className="bg-button flex flex-col items-center justify-center p-8 rounded-b-lg dark:bg-violet-600 dark:text-gray-50">
                 <img
-                  src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  src="https://www.wp.amigosnet.net/wp-content/uploads/2018/08/team-member-1.jpg"
                   alt=""
                   className="w-16 h-16 mb-2 -mt-16 bg-center bg-cover rounded-full dark:bg-gray-500 dark:bg-gray-300"
                 />

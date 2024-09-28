@@ -13,7 +13,7 @@ const FeaturedFacilities = () => {
         <div className="rounded-xl bg-[#FCF8F3] p-3 shadow-lg hover:shadow-xl">
           <div className="relative flex items-end overflow-hidden rounded-xl">
             <img
-              src="https://images.pexels.com/photos/3448250/pexels-photo-3448250.jpeg?cs=srgb&dl=pexels-tomfisk-3448250.jpg&fm=jpg"
+              src="https://winstonsportscentre.co.uk/wp-content/uploads/2022/08/Aerial-image-of-3G-pitch-1024x576.jpg"
               alt="Hotel Photo"
               className="h-[200px] w-full"
             />
